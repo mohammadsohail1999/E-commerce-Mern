@@ -87,7 +87,7 @@ else{
 </td>
 
 
-<td><LinkContainer to={`/admin/user/${order._id}`}>
+<td><LinkContainer to={`/order/${order._id}`}>
     
     <Button variant='light' className='btn-sm'>
     

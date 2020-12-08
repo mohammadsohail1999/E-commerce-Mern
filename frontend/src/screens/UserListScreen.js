@@ -29,6 +29,8 @@ const UserListScreen = ({history}) => {
 
  dispatch(UserDelete(id))
 
+   
+
 
         }
         
