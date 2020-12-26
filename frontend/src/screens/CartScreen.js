@@ -20,7 +20,7 @@ const CartScreen = ({match,location,history}) => {
 
 
 
-   console.log(cartItems)
+   
 
    useEffect(()=>{
      

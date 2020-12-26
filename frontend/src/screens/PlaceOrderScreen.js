@@ -43,6 +43,8 @@ const PlaceOrderScreen = (props) => {
        if(success){
          
            props.history.push(`/order/${order._id}`)
+           dispatch({type:'USER_DETAILS_RESET'})
+           dispatch({type: "ORDER_CREATE_RESET"})
        }
    },[props.history,success,order,dispatch])
 

@@ -40,11 +40,18 @@ export const login= (email,password)=> async(dispatch)=>{
 export  const LogOut = () => (dispatch)=>{
 
 localStorage.removeItem('userInfo')
+localStorage.removeItem('cartItems')
+localStorage.removeItem('shippingAddress')
+localStorage.removeItem('paymentMethod')
+
+
 
 dispatch({type: 'USER_LOGOUT'})
  dispatch({type: 'USER_LIST_RESET'})
   dispatch({type: 'ORDER_USERLIST_RESET'})
   dispatch({type:'USER_DETAILS_RESET'})
+
+  document.location.href = '/login'
 
 }
 
@@ -154,6 +161,13 @@ export const updateUserProfile= (user)=> async(dispatch,getState)=>{
           type: 'USER_UPDATE_PROFILE_SUCCESS',
           payload: data
       })
+
+      dispatch({
+          type: 'USER_LOGIN_SUCCESS',
+          payload: data
+      })
+
+      localStorage.setItem('userInfo',JSON.stringify(data))
 
       
 
@@ -285,17 +299,32 @@ export const UserUpdate = (user)=> async(dispatch,getState)=>{
       dispatch({
           type: 'USER_DETAILS_SUCCESS',payload: data
       })
+      dispatch({
+        type: 'USER_UPDATE_PROFILE_SUCCESS',
+        payload: data
+    })
+
+      dispatch({
+          type: 'USER_DETAILS_RESET'
+      })
 
       
 
     }
-       catch(err){ 
-        dispatch({type:'USER_UPDATE_FAIL',
-        payload: err.response && err.response.data.message ? err.response.data.message : err.message
- 
-       })  
+    catch (error) {
+        const message =
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message
+        if (message === 'Not authorized, token failed') {
+          dispatch(LogOut())
+        }
+        dispatch({
+          type: 'USER_UPDATE_FAIL',
+          payload: message,
+        })
+      }
 
-}
 
 
 

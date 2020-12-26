@@ -27,7 +27,7 @@ const UserListScreen = ({history}) => {
         if(window.confirm('Are you sure ?')){
 
 
- dispatch(UserDelete(id))
+          dispatch(UserDelete(id))
 
    
 
